@@ -1,0 +1,48 @@
+#%RAML 1.0
+---
+title: Test API
+version: v1
+/test:
+  get:
+    queryParameters:
+      param1:
+        required: false
+        type: string
+        description: param1
+    responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "result": "Jan Doe employee profile is created in HRMS System.",
+                  "success": true,
+                  "status": 200
+                }
+  post:
+    queryParameters:
+      param1:
+        required: false
+        type: string
+        description: param1
+    body:
+      application/json:
+        example: |
+          {
+           "employee": {
+            "id": "A007",
+            "first_name": "Jan",
+            "last_name": "Doe"
+            }
+          }
+          
+    responses:
+        200:
+          body:
+            application/json:
+              example: |
+                {
+                  "result": "Jan Doe employee profile is created in HRMS System.",
+                  "success": true,
+                  "status": 200
+                }

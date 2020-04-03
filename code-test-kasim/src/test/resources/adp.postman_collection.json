@@ -1,0 +1,61 @@
+{
+	"id": "8937d2ed-a425-2b7b-b10b-958d80201178",
+	"name": "adp",
+	"description": "",
+	"order": [
+		"6e01fab3-7f4e-6fa3-8eb5-70f52f646af5"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1585891670153,
+	"owner": "547353",
+	"public": false,
+	"requests": [
+		{
+			"id": "6e01fab3-7f4e-6fa3-8eb5-70f52f646af5",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8081/api/test?word=helloworld&num=4",
+			"queryParams": [
+				{
+					"key": "word",
+					"value": "helloworld",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "num",
+					"value": "4",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "8937d2ed-a425-2b7b-b10b-958d80201178",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://localhost:8081/api/test?word=helloworld&num=4",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1585891673089,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\"employee\":{\"id\":\"A007\",\"first_name\":\"Jan\",\"last_name\":\"Doe\"}}"
+		}
+	]
+}

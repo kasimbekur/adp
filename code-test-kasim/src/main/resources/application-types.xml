@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="test" format="json">
+      <types:shape format="weave" example="input1.json"><![CDATA[%dw 2.0
+
+type test = {|
+  employee: {|
+    id: String, 
+    first_name: String, 
+    last_name: String
+  |}
+|} {"example": "{\\\"employee\\\":{\\\"id\\\":\\\"A007\\\",\\\"first_name\\\":\\\"Jan\\\",\\\"last_name\\\":\\\"Doe\\\"}}"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="root-element" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+    <types:type name="res1" format="java">
+      <types:shape format="raml"><![CDATA[#%RAML 1.0 DataType
+type: string]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#74729b64-8b62-4ff2-8d4a-d83288954dd9">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="test"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="root-element"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

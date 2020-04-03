@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="qst3Flow" doc:id="1821b8b0-0b28-4797-b6d7-dd08623c7c29" >
+		<logger level="INFO" doc:name="Logger" doc:id="b1813042-72b0-4dd2-8836-8e4b98444f35" message="=== QUESTION 3===="/>
+		<set-variable value='#[attributes.queryParams.word default "hello world"]' doc:name="Set Variable" doc:id="b2ae40d1-f19f-4c90-a5ed-de132f8c96cd" variableName="param"/>
+		<ee:transform doc:name="Transform Message" doc:id="184d7a1a-aedc-41c4-aa16-4c1dcbe7e04e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import java!test::CamelCase
+output application/java
+---
+	 CamelCase::cCase(vars.param) 
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="9a17196e-a088-4a29-9e1c-1493f9993dd9" message="Camel Case is:  #[payload]"/>
+		<flow-ref doc:name="Flow Reference" doc:id="5033393a-a893-4d96-acca-a24d62d125f5" name="qst5-Flow" target="nNum"/>
+	</flow>
+</mule>

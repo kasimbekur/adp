@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="qst5-Flow" doc:id="43346e8a-2817-459f-aa79-67bd7d05dced" >
+		<logger level="INFO" doc:name="Logger" doc:id="2c8993b0-c736-4656-85b6-15a1c3097e37" message="=== QUESTION 5===="/>
+		<set-variable value="#[attributes.queryParams.num default 10]" doc:name="Set Variable" doc:id="35721bec-7d21-4503-b73b-5c33993fa217" variableName="nNum"/>
+		<ee:transform doc:name="Transform Message" doc:id="74729b64-8b62-4ff2-8d4a-d83288954dd9" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+---
+1 to vars.nNum map $]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="11d69600-1101-4f44-bfd5-acb3a68401e7" message="==== N-Number is: #[payload]"/>
+	</sub-flow>
+</mule>
