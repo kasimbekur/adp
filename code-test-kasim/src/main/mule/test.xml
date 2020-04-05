@@ -137,7 +137,7 @@ output application/java
     </flow>
     <flow name="post:\test:test-config">
 		<logger level="INFO" doc:name="Logger" doc:id="0d8d4d4a-8374-4ecb-a490-41a354496127" message="=== QUESTION 1==== Response is in output payload"/>
-		<ee:transform doc:name="Transform Message" doc:id="89c06a60-ab0b-4d87-bec2-1ddaed4e9730">
+		<ee:transform doc:name="qst-1" doc:id="89c06a60-ab0b-4d87-bec2-1ddaed4e9730">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -149,7 +149,7 @@ Mule::lookup('flow2', payload)]]></ee:set-payload>
     </flow>
 	<flow name="flow2" doc:id="0c789cc5-69a7-4ade-8be0-312e1ba27045" >
 		<logger level="INFO" doc:name="Logger" doc:id="36d06daf-08a3-4b49-91ea-ffd9d6762891" message="=== QUESTION 2===="/>
-		<ee:transform doc:name="Transform Message" doc:id="b866036a-f9fb-479a-bfb0-d8d084ec3c8a">
+		<ee:transform doc:name="qst-2" doc:id="b866036a-f9fb-479a-bfb0-d8d084ec3c8a">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -162,6 +162,13 @@ v1[0].result]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" doc:id="5595f8c1-5065-4eb7-8d81-e437f96ff5d5" message="#[payload]" />
-		<flow-ref doc:name="Flow Reference" doc:id="bf02de0e-4742-472e-9771-2c736f0b1b87" name="qst3Flow" target="qst3"/>
+		<flow-ref doc:name="qst3" doc:id="bf02de0e-4742-472e-9771-2c736f0b1b87" name="qst3Flow" target="qst3"/>
+		<flow-ref doc:name="qst-4.1" doc:id="8599f76f-73ff-4cc2-ac28-5a2c49157fe7" name="qst-4.1" target="qst-4.1"/>
+		<flow-ref doc:name="qst-4.2" doc:id="afe9d002-6f88-419d-9d7f-6549ee20369d" name="qst-4.2" target="qst-4.2"/>
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="07d3703e-e390-402b-b943-fb1c41e85395" >
+				<logger level="ERROR" doc:name="Logger" doc:id="18f621a9-57b9-413a-b9db-cfe1bc1bf404" message="=== An error occurred: #[error.description]"/>
+			</on-error-propagate>
+		</error-handler>
 	</flow>
 </mule>

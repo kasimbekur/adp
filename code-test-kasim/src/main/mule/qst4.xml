@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="qst-4.1" doc:id="6fde4b59-41e6-49f4-869b-dbacd4871749" >
+		<logger level="INFO" doc:name="Logger" doc:id="75660245-87a9-466f-a494-328dc14db624" message="=== QUESTION-4.1====="/>
+		<ee:transform doc:name="Transform Message" doc:id="abfe5a1a-69f1-45b0-8cf0-65ed8936a118" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+import * from dw::core::Arrays
+var emp={
+	"employee": [{
+		"id": "A007",
+		"first_name": "Jan",
+		"last_name": "Doe"
+	}, {
+		"id": "A008",
+		"first_name": "Ron",
+		"last_name": "David "
+	}, {
+		"id": "A009 ",
+		"first_name": "Jane ",
+		"last_name": "Kane "
+	}, {
+		"id": "A010",
+		"first_name": "Marsh",
+		"last_name": "Megan"
+	}, {
+		"id": "A011",
+		"first_name": "Kelly",
+		"last_name": "Mitch"
+	}, {
+		"id": "A012",
+		"first_name": "Chris",
+		"last_name": "Vaste"
+	}]
+}
+
+var score = {
+	"scoreBoard": [{
+		"id": "A007",
+		"subjects": ["Maths", "English", "Arts", "Drawimgs"],
+		"score": [80, 75, 89, 100]
+	}, {
+		"id": "A008",
+		"subjects": ["Maths", "English", "Arts", "Drawimgs"],
+		"score": [70, 85, 69, 90]
+	}, {
+		"id": "A021 ",
+		"subjects ": ["Maths ", "English ", "Arts ", "Drawimgs "],
+		"score ": [90, 87, 77, 95]
+	}]
+}
+---
+certificate: emp.employee map(empValue)->{
+	
+	id: empValue.id,
+	firstName: empValue.first_name,
+	lastName: empValue.last_name,
+	(score.scoreBoard filter ($.*id contains empValue.id) map(scoreValue)->
+		{
+			"MarksBySubjectWise ": {
+				"Maths": scoreValue.score[0],
+				"English": scoreValue.score[1],
+				"Arts": scoreValue.score[2],
+				"Drawings": scoreValue.score[3]
+			}
+		}
+	)
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="63181a84-1d1d-4b0e-9e61-94837d84f34e" message="#[payload]"/>
+	</flow>
+	<flow name="qst-4.2" doc:id="bbdd996b-d852-4157-9e05-463ea48eff4a" >
+		<logger level="INFO" doc:name="Logger" doc:id="865c6a81-584c-4802-9c24-1233d2ff398f" message="=== QUESTION-4.2====="/>
+		<ee:transform doc:name="Transform Message" doc:id="537d930a-9a3d-42c7-9123-44e85e232904" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+import * from dw::core::Arrays
+var emp={
+	"employee": [{
+		"id": "A007",
+		"first_name": "Jan",
+		"last_name": "Doe"
+	}, {
+		"id": "A008",
+		"first_name": "Ron",
+		"last_name": "David "
+	}, {
+		"id": "A009 ",
+		"first_name": "Jane ",
+		"last_name": "Kane "
+	}, {
+		"id": "A010",
+		"first_name": "Marsh",
+		"last_name": "Megan"
+	}, {
+		"id": "A011",
+		"first_name": "Kelly",
+		"last_name": "Mitch"
+	}, {
+		"id": "A012",
+		"first_name": "Chris",
+		"last_name": "Vaste"
+	}]
+}
+
+var score = {
+	"scoreBoard": [{
+		"id": "A007",
+		"subjects": ["Maths", "English", "Arts", "Drawimgs"],
+		"score": [80, 75, 89, 100]
+	}, {
+		"id": "A008",
+		"subjects": ["Maths", "English", "Arts", "Drawimgs"],
+		"score": [70, 85, 69, 90]
+	}, {
+		"id": "A021 ",
+		"subjects ": ["Maths ", "English ", "Arts ", "Drawimgs "],
+		"score ": [90, 87, 77, 95]
+	}]
+}
+---
+ join(emp.employee, score.scoreBoard, (e) -> e.id, (s) -> s.id)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="ae99f39a-12ef-41dd-997d-ec21b85b3e91" message="#[payload]"/>
+	</flow>
+</mule>
